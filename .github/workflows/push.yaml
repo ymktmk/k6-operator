@@ -49,7 +49,7 @@ jobs:
           build-args: |
             GO_BUILDER_IMG=golang:1.19
           platforms: linux/amd64,linux/arm64
-          tags: ghcr.io/grafana/k6-operator:latest,ghcr.io/grafana/k6-operator:controller-${{env.IMAGETAG}}
+          tags: ghcr.io/ymktmk/k6-operator:latest,ghcr.io/ymktmk/k6-operator:controller-${{env.IMAGETAG}}
       - name: "Build:dockerimage"
         uses: docker/build-push-action@v5
         with:
@@ -57,7 +57,7 @@ jobs:
           push: true
           file: Dockerfile.runner
           platforms: linux/amd64,linux/arm64
-          tags: ghcr.io/grafana/k6-operator:latest-runner,ghcr.io/grafana/k6-operator:runner-${{env.IMAGETAG}}
+          tags: ghcr.io/ymktmk/k6-operator:latest-runner,ghcr.io/ymktmk/k6-operator:runner-${{env.IMAGETAG}}
       - name: "Build:dockerimage"
         uses: docker/build-push-action@v5
         with:
@@ -65,7 +65,7 @@ jobs:
           push: true
           file: Dockerfile.starter
           platforms: linux/amd64,linux/arm64
-          tags: ghcr.io/grafana/k6-operator:latest-starter,ghcr.io/grafana/k6-operator:starter-${{env.IMAGETAG}}
+          tags: ghcr.io/ymktmk/k6-operator:latest-starter,ghcr.io/ymktmk/k6-operator:starter-${{env.IMAGETAG}}
 
   bundle:
     name: "Generate bundle"
@@ -88,7 +88,7 @@ jobs:
         uses: imranismail/setup-kustomize@v2
       - name: "Bundle"
         run: |
-          cd config/default && kustomize edit set image ghcr.io/grafana/k6-operator=*:controller-${{env.IMAGETAG}} && kustomize build . > ../../bundle.yaml
+          cd config/default && kustomize edit set image ghcr.io/ymktmk/k6-operator=*:controller-${{env.IMAGETAG}} && kustomize build . > ../../bundle.yaml
       - name: "Branch"
         run: |
           git checkout -b release-${{env.IMAGETAG}}/bundle-update
