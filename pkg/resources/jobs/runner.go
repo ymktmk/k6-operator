@@ -288,5 +288,15 @@ func generateProbe(configuredProbe *corev1.Probe) *corev1.Probe {
 				Scheme: "HTTP",
 			},
 		},
+		InitialDelaySeconds: 60,
+		TimeoutSeconds: 1,
+		PeriodSeconds: 10,
+		SuccessThreshold: 1,
+		FailureThreshold: 3,
+		TerminationGracePeriodSeconds: int64Ptr(30),
 	}
+}
+
+func int64Ptr(i int64) *int64 {
+	return &i
 }
